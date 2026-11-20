@@ -19,6 +19,7 @@ Ein DLNA/UPnP-Mediaserver, der viele öffentlich erreichbare MP3-Autoindex-Quell
 | :---: | :---: |
 | ![web-dlna dashboard](docs/screenshots/web-dlna-dashboard.png) |
 | ![web-dlna genre browser](docs/screenshots/web-dlna-genres.png) | ![web-dlna admin](docs/screenshots/web-dlna-admin.png) |
+| ![web-dlna admin — bottom of page](docs/screenshots/web-dlna-admin-bottom.png) | &nbsp; |
 
 ---
 
