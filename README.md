@@ -1,6 +1,6 @@
 # web-dlna
 
-Ein DLNA/UPnP-Mediaserver, der viele öffentlich erreichbare MP3-Autoindex-Quellen als **einen** Medienserver bündelt. Dieses Repository enthält den kompletten Servercode, die Web-Oberfläche und einen **vorbereiteten Index** aller eingerichteten MP3-Quellen. Das Docker-Image wird aus diesem Repository gebaut und nach **GitHub Container Registry (GHCR)** veröffentlicht.
+Ein DLNA/UPnP-Mediaserver, der viele öffentlich erreichbare MP3-Autoindex-Quellen als **einen** Medienserver bündelt. Dieses Repository enthält den kompletten Servercode, die Web-Oberfläche und einen **vorbereiteten Index** aller eingerichteten MP3-Quellen. Das Docker-Image wird bei jedem Push auf `main` per GitHub Actions nach **GitHub Container Registry (GHCR)** veröffentlicht.
 
 **Image:** `ghcr.io/cosmicboy6/web-dlna:latest`  
 **Weboberfläche:** `http://<host>:9092/`  
@@ -295,19 +295,21 @@ docker run -d --name web-dlna --restart=always --network=host \
 
 ## Image veröffentlichen
 
-Nach Änderungen am Code oder am Index das Image neu bauen und nach GHCR pushen:
+Der Workflow `.github/workflows/docker-publish.yml` baut und pusht bei jedem Push auf `main` automatisch:
+
+- `ghcr.io/cosmicboy6/web-dlna:latest`
+- `ghcr.io/cosmicboy6/web-dlna:sha-<kurzer-commit-hash>`
+
+Dafür nutzt er das `GITHUB_TOKEN` des Repositories mit `packages: write`; ein separater Registry-Token ist nicht nötig. Der Workflow setzt das Package zudem auf **public**, sodass `docker pull` ohne Login funktioniert.
+
+Manuell auslösen: GitHub → **Actions** → **Publish Docker image to GHCR** → **Run workflow**.
+
+Falls du lokal ohne Actions bauen willst:
 
 ```bash
-docker login ghcr.io -u cosmicboy6           # Token mit write:packages
+docker login ghcr.io -u cosmicboy6           # Classic-PAT mit write:packages
 docker build -t ghcr.io/cosmicboy6/web-dlna:latest .
 docker push ghcr.io/cosmicboy6/web-dlna:latest
-```
-
-Optional kann zusätzlich ein Versions-Tag gesetzt werden:
-
-```bash
-docker tag ghcr.io/cosmicboy6/web-dlna:latest ghcr.io/cosmicboy6/web-dlna:1.0.0
-docker push ghcr.io/cosmicboy6/web-dlna:1.0.0
 ```
 
 Das `latest`-Tag zeigt immer auf den zuletzt veröffentlichten Stand dieses Repositories.
