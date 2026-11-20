@@ -37,7 +37,6 @@ Ein DLNA/UPnP-Mediaserver, der viele öffentlich erreichbare MP3-Autoindex-Quell
 - [HTTP-API](#http-api)
 - [Index aktualisieren](#index-aktualisieren)
 - [Lokal bauen](#lokal-bauen)
-- [Image veröffentlichen](#image-veröffentlichen)
 - [Datenschutz](#datenschutz)
 - [Fehlerbehebung](#fehlerbehebung)
 
@@ -305,27 +304,6 @@ docker run -d --name web-dlna --restart=always --network=host \
   -v "$PWD/music:/music" \
   web-dlna:local
 ```
-
-## Image veröffentlichen
-
-Der Workflow `.github/workflows/docker-publish.yml` baut und pusht bei jedem Push auf `main` automatisch:
-
-- `ghcr.io/cosmicboy6/web-dlna:latest`
-- `ghcr.io/cosmicboy6/web-dlna:sha-<kurzer-commit-hash>`
-
-Dafür nutzt er das `GITHUB_TOKEN` des Repositories mit `packages: write`; ein separater Registry-Token ist nicht nötig. Der Workflow setzt das Package zudem auf **public**, sodass `docker pull` ohne Login funktioniert.
-
-Manuell auslösen: GitHub → **Actions** → **Publish Docker image to GHCR** → **Run workflow**.
-
-Falls du lokal ohne Actions bauen willst:
-
-```bash
-docker login ghcr.io -u cosmicboy6           # Classic-PAT mit write:packages
-docker build -t ghcr.io/cosmicboy6/web-dlna:latest .
-docker push ghcr.io/cosmicboy6/web-dlna:latest
-```
-
-Das `latest`-Tag zeigt immer auf den zuletzt veröffentlichten Stand dieses Repositories.
 
 ---
 
