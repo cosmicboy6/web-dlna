@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>web-dlna · Player Demo</title>
+<link rel="icon" type="image/jpeg" href="/dlna/icon64.jpg">
+<style>
+:root{
+  --bg:#0a0e16; --card:#121a28; --card2:#0e1521; --line:#1f2b3d;
+  --txt:#e8eef8; --muted:#8b9ab0; --gold:#e9b44c; --gold2:#f5cd7a;
+  --blue:#3b82f6;
+}
+*{box-sizing:border-box}
+body{margin:0;background:
+  radial-gradient(1100px 500px at 85% -10%, #1a2540 0%, transparent 60%),
+  radial-gradient(800px 400px at -10% 110%, #1b2233 0%, transparent 55%), var(--bg);
+  color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  min-height:100vh}
+.app{max-width:1060px;margin:0 auto;padding:26px 18px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:44px;height:44px;border-radius:12px;box-shadow:0 6px 18px #0008}
+.brand .name{font-weight:700;font-size:1.15rem;letter-spacing:.3px}
+.brand .sub{color:var(--muted);font-size:.8rem}
+.pill{border:1px solid var(--line);background:#0d1522;color:var(--muted);
+  padding:7px 12px;border-radius:999px;font-size:.8rem;white-space:nowrap}
+.pill b{color:var(--gold2);font-weight:600}
+main{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
+.card{background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px #0006}
+.now{padding:22px}
+.cover{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:1/1;max-width:300px;
+  margin:0 auto 18px;background:radial-gradient(circle at 30% 25%,#2a3a58,#0c1220);
+  border:1px solid #22304a}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cover .glow{position:absolute;inset:0;background:radial-gradient(circle at 70% 90%,#e9b44c22,transparent 60%)}
+.badge{display:inline-block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  color:#0b0e14;background:linear-gradient(180deg,var(--gold2),var(--gold));
+  padding:3px 9px;border-radius:999px;font-weight:700;margin-bottom:10px}
+h1{font-size:1.35rem;margin:0 0 6px;line-height:1.25}
+.artist{color:var(--gold2);font-weight:600;font-size:.98rem}
+.album{color:var(--muted);font-size:.88rem;margin-top:3px}
+.seek{display:flex;align-items:center;gap:10px;margin:20px 0 8px;color:var(--muted);font-size:.78rem;
+  font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;
+  background:#1c2740;outline:none;flex:1}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:var(--gold2);border:2px solid #0a0e16;box-shadow:0 0 0 4px #e9b44c26;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--gold2);
+  border:2px solid #0a0e16;cursor:pointer}
+.controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:14px 0 6px}
+button{background:none;border:0;color:var(--txt);cursor:pointer;display:inline-flex;
+  align-items:center;justify-content:center;border-radius:12px;transition:.15s}
+button:hover{color:var(--gold2)}
+button svg{width:22px;height:22px;fill:currentColor}
+button.small{color:var(--muted);padding:8px}
+button.small.on{color:var(--gold)}
+button.play{width:58px;height:58px;background:linear-gradient(180deg,var(--gold2),var(--gold));
+  color:#111621;box-shadow:0 10px 26px #e9b44c40}
+button.play:hover{transform:translateY(-1px)}
+button.play svg{width:26px;height:26px}
+button.step{padding:10px}
+.vol{display:flex;align-items:center;gap:10px;margin-top:14px}
+.vol input{max-width:130px}
+.vol button{color:var(--muted);padding:4px}
+.list{overflow:hidden}
+.listhead{display:flex;align-items:center;gap:10px;padding:16px 16px 10px}
+.listhead h2{font-size:1rem;margin:0;flex:1}
+.listhead input{background:#0b1220;border:1px solid var(--line);color:var(--txt);
+  padding:8px 12px;border-radius:10px;font-size:.85rem;width:130px;outline:none}
+.listhead input:focus{border-color:#33507c}
+ol{list-style:none;margin:0;padding:0 8px 12px;max-height:560px;overflow:auto}
+li{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:12px;cursor:pointer}
+li:hover{background:#16203455}
+li.active{background:#1a2740}
+li .num{width:22px;text-align:right;color:#5d6d85;font-size:.78rem;font-variant-numeric:tabular-nums}
+li .art{width:38px;height:38px;border-radius:9px;overflow:hidden;background:#182238;flex:0 0 38px}
+li .art img{width:100%;height:100%;object-fit:cover;display:block}
+li .t{flex:1;min-width:0}
+li .t .tt{font-size:.86rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+li .t .al{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+li .src{font-size:.66rem;color:var(--gold2);border:1px solid #3a3020;
+  background:#221b0f;padding:2px 7px;border-radius:999px;white-space:nowrap}
+li .dur{color:#5d6d85;font-size:.74rem;font-variant-numeric:tabular-nums;width:38px;text-align:right}
+li.active .tt{color:var(--gold2)}
+footer{margin-top:22px;text-align:center;color:#5d6d85;font-size:.78rem}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#3a1d24;
+  color:#ffd9df;border:1px solid #6b2b36;padding:9px 14px;border-radius:10px;font-size:.83rem;
+  opacity:0;pointer-events:none;transition:.25s}
+#toast.show{opacity:1}
+.morebtn{margin:0 16px 16px;width:calc(100% - 32px);padding:10px;border:1px solid var(--line);
+  background:#101929;color:var(--gold2);border-radius:10px;font-size:.85rem;font-weight:600;
+  cursor:pointer}
+.morebtn:hover{background:#16233a}
+.morebtn:disabled{opacity:.6;cursor:default}
+@media (max-width:820px){
+  main{grid-template-columns:1fr}
+  .cover{max-width:230px}
+  ol{max-height:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <img src="/dlna/icon.jpg" alt="">
+      <div><div class="name">web-dlna</div><div class="sub">Player · Demo-Seite</div></div>
+    </div>
+    <div class="pill"><b id="count">0</b> Tracks · <span id="loaded">0</span> geladen</div>
+  </header>
+
+  <main>
+    <section class="card now">
+      <div class="cover"><img id="coverImg" src="/dlna/icon.jpg" alt=""><div class="glow"></div></div>
+      <div class="badge" id="srcBadge">Demo</div>
+      <h1 id="title">Bereit zum Abspielen</h1>
+      <div class="artist" id="artist">web-dlna</div>
+      <div class="album" id="album">Wähle einen Titel aus der Playlist</div>
+
+      <div class="seek">
+        <span id="cur">0:00</span>
+        <input id="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Position">
+        <span id="dur">0:00</span>
+      </div>
+
+      <div class="controls">
+        <button class="small" id="shuffle" title="Shuffle" aria-label="Shuffle">
+          <svg viewBox="0 0 24 24"><path d="M16 3h5v5l-2-2-3.3 3.3-1.4-1.4L17.6 5 16 3zM3 6h4.5l2 2H3V6zm14.6 9.7L21 19l-3.4-3.4L21 12v5h-5l1.6-1.3zM3 16h6.5l2-2H3v2zm13.3-4.3 1.4 1.4L21 9.9V5h-5l3.3 3.3-3 3.4z"/></svg>
+        </button>
+        <button class="step" id="prev" title="Zurück" aria-label="Zurück">
+          <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6V5zm3.5 7L19 5v14l-9.5-7z"/></svg>
+        </button>
+        <button class="play" id="play" title="Play/Pause" aria-label="Play">
+          <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
+        </button>
+        <button class="step" id="next" title="Weiter" aria-label="Weiter">
+          <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2V5zM4 5l9.5 7L4 19V5z"/></svg>
+        </button>
+        <button class="small" id="repeat" title="Repeat" aria-label="Repeat">
+          <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        </button>
+      </div>
+
+      <div class="vol">
+        <button id="mute" title="Stumm" aria-label="Stumm">
+          <svg id="volIcon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+        </button>
+        <input id="volume" type="range" min="0" max="100" value="80" aria-label="Lautstärke">
+      </div>
+    </section>
+
+    <aside class="card list">
+      <div class="listhead">
+        <h2>Playlist</h2>
+        <input id="filter" placeholder="Suchen …" aria-label="Playlist durchsuchen">
+      </div>
+      <ol id="tracks"></ol>
+      <button id="more" class="morebtn">12 mehr laden</button>
+    </aside>
+  </main>
+
+  <footer>Demo-Seite · virtuelle Playlist: <code>/playlist.m3u?start=0&amp;limit=12</code> ·
+  Dashboard und Admin bleiben unverändert</footer>
+</div>
+<div id="toast"></div>
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+const PLAYLIST = [
+ {
+  "title": "From the Beginning to the Forever - 2nd session - Human Element dj set",
+  "album": "Fradgify",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/From%20the%20Beginning%20to%20the%20Forever%20-%202nd%20session%20-%20Human%20Element%20dj%20set.mp3",
+  "art": ""
+ },
+ {
+  "title": "Dieselboy - A Soldier's Story",
+  "album": "#MIXES_dnb",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/%23MIXES_dnb/Dieselboy%20-%20A%20Soldier's%20Story.mp3",
+  "art": ""
+ },
+ {
+  "title": "Black Sun Empire - Dark Girl",
+  "album": "#other",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/%23other/Black%20Sun%20Empire%20-%20Dark%20Girl.mp3",
+  "art": ""
+ },
+ {
+  "title": "Oasis - Be Here Now - 01 - D'You Know What I Mean",
+  "album": "(1997) Be Here Now",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/(1997)%20Be%20Here%20Now/Oasis%20-%20Be%20Here%20Now%20-%2001%20-%20D'You%20Know%20What%20I%20Mean.mp3",
+  "art": ""
+ },
+ {
+  "title": "Oasis - Be Here Now - 02 - My Big Mouth",
+  "album": "(1997) Be Here Now",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/(1997)%20Be%20Here%20Now/Oasis%20-%20Be%20Here%20Now%20-%2002%20-%20My%20Big%20Mouth.mp3",
+  "art": ""
+ },
+ {
+  "title": "01. Invasion",
+  "album": "(1999) Beam Me Up",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/(1999)%20Beam%20Me%20Up/01.%20Invasion.mp3",
+  "art": ""
+ },
+ {
+  "title": "02. Robotalk",
+  "album": "(1999) Beam Me Up",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/(1999)%20Beam%20Me%20Up/02.%20Robotalk.mp3",
+  "art": ""
+ },
+ {
+  "title": "01 - Is He Ready",
+  "album": "(1999) Mr. Scruff - Keep It Unreal",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/(1999)%20Mr.%20Scruff%20-%20Keep%20It%20Unreal/01%20-%20Is%20He%20Ready.mp3",
+  "art": "https://www.fradgify.kozow.com/media/music/complete/(1999)%20Mr.%20Scruff%20-%20Keep%20It%20Unreal/Keep%20It%20Unreal.jpg"
+ },
+ {
+  "title": "02 - Spandex Man",
+  "album": "(1999) Mr. Scruff - Keep It Unreal",
+  "source": "Fradgify",
+  "url": "https://www.fradgify.kozow.com/media/music/complete/(1999)%20Mr.%20Scruff%20-%20Keep%20It%20Unreal/02%20-%20Spandex%20Man.mp3",
+  "art": "https://www.fradgify.kozow.com/media/music/complete/(1999)%20Mr.%20Scruff%20-%20Keep%20It%20Unreal/Keep%20It%20Unreal.jpg"
+ },
+ {
+  "title": "Soundcrimes - 2005-07-26 @ The Melody Inn",
+  "album": "2005-07-26 - Broke(n) Tuesdays",
+  "source": "Induce",
+  "url": "https://www.induceonline.com/live/2005-07-26%20-%20Broke(n)%20Tuesdays/Soundcrimes%20-%202005-07-26%20@%20The%20Melody%20Inn.mp3",
+  "art": ""
+ },
+ {
+  "title": "Cory James - 2005-08-02 @ The Melody Inn",
+  "album": "2005-08-02 - Broke(n) Tuesdays",
+  "source": "Induce",
+  "url": "https://www.induceonline.com/live/2005-08-02%20-%20Broke(n)%20Tuesdays/Cory%20James%20-%202005-08-02%20@%20The%20Melody%20Inn.mp3",
+  "art": ""
+ },
+ {
+  "title": "Dave Owen - 2005-08-02 @ The Melody Inn",
+  "album": "2005-08-02 - Broke(n) Tuesdays",
+  "source": "Induce",
+  "url": "https://www.induceonline.com/live/2005-08-02%20-%20Broke(n)%20Tuesdays/Dave%20Owen%20-%202005-08-02%20@%20The%20Melody%20Inn.mp3",
+  "art": ""
+ }
+];
+const audio = document.getElementById('audio');
+const $ = id => document.getElementById(id);
+let idx = -1, shuffle = false, repeat = 0, filterText = '';
+let TOTAL = 0;
+
+function prettify(s){
+  return s.replace(/^\d{1,3}\s*[-.)]\s*/, '').replace(/_/g, ' ').trim() || s;
+}
+function fmt(t){
+  if (!isFinite(t)) return '0:00';
+  t = Math.max(0, Math.floor(t));
+  return Math.floor(t/60) + ':' + String(t%60).padStart(2,'0');
+}
+function toast(msg){
+  const el = $('toast'); el.textContent = msg; el.classList.add('show');
+  clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2600);
+}
+function artOf(t){ return t.art || '/dlna/icon64.jpg'; }
+
+function render(){
+  const list = $('tracks');
+  list.innerHTML = '';
+  const shown = PLAYLIST.map((t,i)=>({t,i})).filter(({t}) =>
+    !filterText || (prettify(t.title)+' '+t.album+' '+t.source).toLowerCase().includes(filterText));
+  shown.forEach(({t,i}) => {
+    const li = document.createElement('li');
+    li.className = i === idx ? 'active' : '';
+    li.innerHTML = '<span class="num">'+(i+1)+'</span>'+
+      '<span class="art"><img src="'+artOf(t)+'" alt="" loading="lazy" '+
+      'onerror="this.onerror=null;this.src=\'/dlna/icon64.jpg\'"></span>'+
+      '<span class="t"><span class="tt"></span><span class="al"></span></span>'+
+      '<span class="src"></span><span class="dur">–</span>';
+    li.querySelector('.tt').textContent = prettify(t.title);
+    li.querySelector('.al').textContent = t.album || '';
+    li.querySelector('.src').textContent = t.source || '';
+    li.onclick = () => { idx = i; play(); };
+    list.appendChild(li);
+  });
+  $('count').textContent = PLAYLIST.length;
+}
+
+function paint(){
+  const t = PLAYLIST[idx];
+  if (!t) return;
+  $('coverImg').src = artOf(t);
+  $('title').textContent = prettify(t.title);
+  $('artist').textContent = t.source || 'web-dlna';
+  $('album').textContent = t.album || '';
+  $('srcBadge').textContent = t.source || 'Demo';
+  document.title = prettify(t.title) + ' · web-dlna';
+  try {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: prettify(t.title), artist: t.source || 'web-dlna', album: t.album || '',
+        artwork: [{src: new URL(artOf(t), location.href).href, sizes: '512x512', type: 'image/jpeg'}]
+      });
+    }
+  } catch (e) {}
+  render();
+}
+
+function play(){
+  if (idx < 0) idx = 0;
+  const t = PLAYLIST[idx];
+  if (audio.src !== t.url) audio.src = t.url;
+  paint();
+  audio.play().then(() => setPlaying(true)).catch(() => {
+    setPlaying(false);
+    toast('Titel nicht abspielbar (Quelle offline?)');
+  });
+}
+function setPlaying(on){
+  $('playIcon').innerHTML = on
+    ? '<path d="M7 5h4v14H7V5zm6 0h4v14h-4V5z"/>'
+    : '<path d="M8 5v14l11-7L8 5z"/>';
+  $('play').setAttribute('aria-label', on ? 'Pause' : 'Play');
+}
+function next(){
+  if (!PLAYLIST.length) return;
+  idx = shuffle ? Math.floor(Math.random()*PLAYLIST.length) : (idx + 1) % PLAYLIST.length;
+  play();
+}
+function prev(){
+  if (!PLAYLIST.length) return;
+  idx = idx <= 0 ? PLAYLIST.length - 1 : idx - 1;
+  play();
+}
+
+$('play').onclick = () => {
+  if (!audio.src) { play(); return; }
+  if (audio.paused) audio.play().then(()=>setPlaying(true)).catch(()=>{});
+  else audio.pause();
+};
+$('next').onclick = next;
+$('prev').onclick = prev;
+$('shuffle').onclick = () => {
+  shuffle = !shuffle;
+  $('shuffle').classList.toggle('on', shuffle);
+};
+$('repeat').onclick = () => {
+  repeat = (repeat + 1) % 3;
+  $('repeat').classList.toggle('on', repeat > 0);
+  $('repeat').style.opacity = repeat === 2 ? '1' : repeat === 1 ? '.85' : '';
+  $('repeat').title = ['Repeat aus','Repeat alle','Repeat eins'][repeat];
+};
+$('volume').oninput = e => {
+  audio.volume = e.target.value / 100;
+  audio.muted = false;
+  paintVol();
+};
+$('mute').onclick = () => { audio.muted = !audio.muted; paintVol(); };
+function paintVol(){
+  const muted = audio.muted || audio.volume === 0;
+  $('volIcon').innerHTML = muted
+    ? '<path d="M3 9v6h4l5 4V5L7 9H3zm18.3 3L18 8.7 16.6 10.1 19.5 13l-2.9 2.9L18 17.3 20.9 14.4 23.8 17.3 25.2 15.9 22.3 13z" transform="translate(-2 0)"/>'
+    : '<path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/>';
+}
+$('seek').oninput = e => {
+  if (isFinite(audio.duration)) audio.currentTime = (e.target.value/1000) * audio.duration;
+};
+audio.ontimeupdate = () => {
+  if (isFinite(audio.duration) && audio.duration > 0) {
+    $('seek').value = Math.round(audio.currentTime / audio.duration * 1000);
+  }
+  $('cur').textContent = fmt(audio.currentTime);
+};
+audio.onloadedmetadata = () => {
+  $('dur').textContent = fmt(audio.duration);
+  const row = document.querySelectorAll('#tracks li')[idx];
+  if (row) row.querySelector('.dur').textContent = fmt(audio.duration);
+};
+audio.onended = () => {
+  if (repeat === 2) { audio.currentTime = 0; audio.play(); return; }
+  if (repeat === 1 || idx < PLAYLIST.length - 1) next();
+  else setPlaying(false);
+};
+audio.onplay = () => setPlaying(true);
+audio.onpause = () => setPlaying(false);
+audio.onerror = () => { setPlaying(false); toast('Titel nicht abspielbar (Quelle offline?)'); };
+
+$('filter').oninput = e => { filterText = e.target.value.trim().toLowerCase(); render(); };
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.code === 'Space') { e.preventDefault(); $('play').click(); }
+  else if (e.code === 'ArrowRight') audio.currentTime += 10;
+  else if (e.code === 'ArrowLeft') audio.currentTime -= 10;
+  else if (e.code === 'ArrowUp') { audio.volume = Math.min(1, audio.volume + .05); $('volume').value = audio.volume*100; paintVol(); }
+  else if (e.code === 'ArrowDown') { audio.volume = Math.max(0, audio.volume - .05); $('volume').value = audio.volume*100; paintVol(); }
+  else if (e.code === 'KeyN') next();
+  else if (e.code === 'KeyP') prev();
+});
+
+audio.volume = .8;
+render();
+paintVol();
+if (PLAYLIST.length) { idx = 0; paint(); }
+
+function parseM3U(text){
+  const out = [];
+  let cur = null;
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line.startsWith('#EXTINF:')) {
+      const meta = line.slice(line.indexOf(',') + 1);
+      let album = '', title = meta;
+      const parts = meta.split(' · ');
+      if (parts.length > 1) { album = parts[0]; title = parts.slice(1).join(' · '); }
+      cur = { title, album, url: '', art: '', source: '' };
+    } else if (!line.startsWith('#') && cur) {
+      cur.url = line;
+      try { cur.source = new URL(line).hostname.replace(/^www\./, ''); } catch (e) {}
+      out.push(cur);
+      cur = null;
+    }
+  }
+  return out;
+}
+
+async function loadChunk(start){
+  const r = await fetch('/playlist.m3u?start=' + start + '&limit=12', {cache: 'no-store'});
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const total = parseInt(r.headers.get('X-Total-Count') || '0', 10);
+  if (total) TOTAL = total;
+  return parseM3U(await r.text());
+}
+
+function paintCount(){
+  $('count').textContent = (TOTAL || PLAYLIST.length).toLocaleString('de-DE');
+  $('loaded').textContent = PLAYLIST.length;
+  const more = $('more');
+  more.style.display = (!TOTAL || PLAYLIST.length >= TOTAL) ? 'none' : '';
+  more.disabled = false;
+  more.textContent = '12 mehr laden';
+}
+
+async function bootstrap(){
+  try {
+    const tracks = await loadChunk(0);
+    if (tracks.length) {
+      PLAYLIST.length = 0;
+      Array.prototype.push.apply(PLAYLIST, tracks);
+      idx = 0;
+      paint();
+    }
+  } catch (e) {
+    toast('Virtuelle Playlist nicht erreichbar – Demo-Daten aktiv');
+  }
+  paintCount();
+}
+
+$('more').onclick = async () => {
+  const btn = $('more');
+  btn.disabled = true;
+  btn.textContent = 'lädt …';
+  try {
+    const tracks = await loadChunk(PLAYLIST.length);
+    Array.prototype.push.apply(PLAYLIST, tracks);
+    render();
+  } catch (e) {
+    toast('Playlist nicht ladbar');
+  }
+  paintCount();
+};
+
+bootstrap();
+</script>
+</body>
+</html>

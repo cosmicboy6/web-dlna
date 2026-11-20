@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*.tmp
+data/library.json
+data/download_history.json
+data/dlna.uuid

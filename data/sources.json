@@ -1,0 +1,314 @@
+[
+ {
+  "id": "fradgify",
+  "name": "Fradgify",
+  "base_url": "https://www.fradgify.kozow.com/media/music/complete/",
+  "icon": "https://www.fradgify.kozow.com/static/icons/favicon.ico"
+ },
+ {
+  "id": "induce",
+  "name": "Induce",
+  "base_url": "https://www.induceonline.com/live/",
+  "icon": "https://induceonline.com/favicon.ico"
+ },
+ {
+  "id": "buhu",
+  "name": "buhu",
+  "base_url": "http://b1g-arch1ve.buho.ch/",
+  "icon": ""
+ },
+ {
+  "id": "lungit",
+  "name": "lungit",
+  "base_url": "https://lungit.com/House%20Music/",
+  "icon": ""
+ },
+ {
+  "id": "djnutte",
+  "name": "DJnutte",
+  "base_url": "http://www.djnutte.com/Music/",
+  "icon": ""
+ },
+ {
+  "id": "mixtaperiot",
+  "name": "mixtaperiot/",
+  "base_url": "https://mixtaperiot.com/wp/wp-content/media/",
+  "icon": "https://mixtaperiot.com/wp/wp-content/media/MTR-Sticker-NEW300.jpg"
+ },
+ {
+  "id": "mikkotomi",
+  "name": "mikkotomi",
+  "base_url": "https://mikkotomi.kapsi.fi/Music/",
+  "icon": ""
+ },
+ {
+  "id": "reastaurant",
+  "name": "Reastaurant",
+  "base_url": "http://84.54.191.178:5555/Music/",
+  "icon": ""
+ },
+ {
+  "id": "octavia",
+  "name": "octavia",
+  "base_url": "http://37.187.117.55/octavia/",
+  "icon": ""
+ },
+ {
+  "id": "burncycl",
+  "name": "burncycl",
+  "base_url": "https://solstice.burncycl.net/music/",
+  "icon": "https://solstice.burncycl.net/logo.ico"
+ },
+ {
+  "id": "birds-are-nice",
+  "name": "birds-are-nice",
+  "base_url": "https://birds-are-nice.me/music/",
+  "icon": ""
+ },
+ {
+  "id": "bouncer",
+  "name": "bouncer",
+  "base_url": "http://bouncer.repoze.org/music/",
+  "icon": ""
+ },
+ {
+  "id": "jfarjona",
+  "name": "jfarjona",
+  "base_url": "https://dyn.jfarjona.com/",
+  "icon": ""
+ },
+ {
+  "id": "wrobradio",
+  "name": "wrobradio",
+  "base_url": "http://wrobradio.com/mp3s/",
+  "icon": ""
+ },
+ {
+  "id": "zaznam",
+  "name": "zaznam",
+  "base_url": "http://zaznam.mrak.cz/",
+  "icon": ""
+ },
+ {
+  "id": "salazar",
+  "name": "salazar",
+  "base_url": "http://mario-salazar.com/Music/",
+  "icon": ""
+ },
+ {
+  "id": "conan",
+  "name": "Conan",
+  "base_url": "https://myndir.sv1.is/Conan/",
+  "icon": ""
+ },
+ {
+  "id": "ctunestore",
+  "name": "ctunestore",
+  "base_url": "http://ctunestore.com:2048/main/music/",
+  "icon": ""
+ },
+ {
+  "id": "freeteknomusic",
+  "name": "freeteknomusic",
+  "base_url": "https://freeteknomusic.org/mp3/",
+  "icon": "https://freeteknomusic.org/images/favicon.ico"
+ },
+ {
+  "id": "mamalisa",
+  "name": "Mamalisa",
+  "base_url": "https://www.mamalisa.com/mp3/",
+  "icon": "https://www.mamalisa.com//images/icons/favicon.ico"
+ },
+ {
+  "id": "wncdc",
+  "name": "WNCDC",
+  "base_url": "https://wncdc.org/mp3/",
+  "icon": "https://wncdc.org/favicon.ico"
+ },
+ {
+  "id": "heart-of-grace",
+  "name": "Heart of Grace",
+  "base_url": "https://www.heartofgraceministries.com/mp3/",
+  "icon": "https://www.heartofgraceministries.com/blog/wp-content/uploads/2017/05/cropped-Untitled-32x32.png"
+ },
+ {
+  "id": "fauxharmonic",
+  "name": "Fauxharmonic",
+  "base_url": "http://www.fauxharmonic.com/music/",
+  "icon": "http://www.fauxharmonic.com/wp-content/uploads/fauxharmonic-logo-bars-2017-color-1024.png"
+ },
+ {
+  "id": "cargo-foxtrot",
+  "name": "Cargo Foxtrot",
+  "base_url": "https://cargo.foxtrot.ua/mp3/",
+  "icon": "https://cargo.foxtrot.ua/favicon.ico"
+ },
+ {
+  "id": "jucciz",
+  "name": "Jucciz",
+  "base_url": "http://jucciz.com/mp3/",
+  "icon": "http://jucciz.com/jucciz.com/gfx/misc/logo.ico"
+ },
+ {
+  "id": "cats-4-sale",
+  "name": "Cats 4 Sale",
+  "base_url": "https://www.cats-4-sale.nl/mp3/",
+  "icon": "https://www.cats-4-sale.nl/favicon.ico"
+ },
+ {
+  "id": "gva",
+  "name": "gva",
+  "base_url": "https://mp3.gva.org.ua/Sorted/",
+  "icon": ""
+ },
+ {
+  "id": "unrec",
+  "name": "unrec",
+  "base_url": "https://www.unrec.com/mixes/",
+  "icon": "https://www.unrec.com/favicon.ico"
+ },
+ {
+  "id": "beelody202411",
+  "name": "beelody202411",
+  "base_url": "https://dl6.beelody.com/Free/2024/11/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202401",
+  "name": "beelody202401",
+  "base_url": "https://dl6.beelody.com/Free/2024/1/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202402",
+  "name": "beelody202402",
+  "base_url": "https://dl6.beelody.com/Free/2024/2/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202403",
+  "name": "beelody202403",
+  "base_url": "https://dl6.beelody.com/Free/2024/3/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202404",
+  "name": "beelody202404",
+  "base_url": "https://dl6.beelody.com/Free/2024/4/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202405",
+  "name": "beelody202405",
+  "base_url": "https://dl6.beelody.com/Free/2024/5/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202406",
+  "name": "beelody202406",
+  "base_url": "https://dl6.beelody.com/Free/2024/6/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202407",
+  "name": "beelody202407",
+  "base_url": "https://dl6.beelody.com/Free/2024/7/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202408",
+  "name": "beelody202408",
+  "base_url": "https://dl6.beelody.com/Free/2024/8/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202409",
+  "name": "beelody202409",
+  "base_url": "https://dl6.beelody.com/Free/2024/9/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2018",
+  "name": "beelody2018",
+  "base_url": "https://dl.beelody.com/Free/2018/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2019",
+  "name": "beelody2019",
+  "base_url": "https://dl.beelody.com/Free/2019/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2020",
+  "name": "beelody2020",
+  "base_url": "https://dl.beelody.com/Free/2020/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2021",
+  "name": "beelody2021",
+  "base_url": "https://dl2.beelody.com/Free/2021/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2022",
+  "name": "beelody2022",
+  "base_url": "https://dl4.beelody.com/Free/2022/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2023a",
+  "name": "beelody2023a",
+  "base_url": "https://dl4.beelody.com/Free/2023/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2023b",
+  "name": "beelody2023b",
+  "base_url": "https://dl5.beelody.com/Free/2023/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202503",
+  "name": "beelody202503",
+  "base_url": "https://dl6.beelody.com/Free/2025/3/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2026",
+  "name": "beelody2026",
+  "base_url": "https://dl6.beelody.com/Free/2026/",
+  "icon": ""
+ },
+ {
+  "id": "beelody2024hit",
+  "name": "beelody2024hit",
+  "base_url": "https://dl6.beelody.com/Free/Hit%20Playlist/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202410",
+  "name": "beelody202410",
+  "base_url": "https://dl6.beelody.com/Free/2024/10/",
+  "icon": ""
+ },
+ {
+  "id": "beelody202412",
+  "name": "beelody202412",
+  "base_url": "https://dl6.beelody.com/Free/2024/12/",
+  "icon": ""
+ },
+ {
+  "id": "words",
+  "name": "words",
+  "base_url": "https://www.bingoenglish.com/mediafile/words/",
+  "icon": "https://www.bingoenglish.com/favicon.ico"
+ },
+ {
+  "id": "doctormacro",
+  "name": "doctormacro",
+  "base_url": "https://www.doctormacro.com/Songs/",
+  "icon": "https://www.doctormacro.com/favicon.ico"
+ }
+]
