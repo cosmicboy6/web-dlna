@@ -342,4 +342,4 @@ Einige Quellen (insbesondere Beelody 2025) liefern nur einen UTF-16-BOM und kön
 
 Dieses Projekt bündelt Index-Metadaten öffentlich erreichbarer Web-Verzeichnisse. Es werden keine Audioinhalte redistribuiert. Die verfügbaren Inhalte und deren Nutzungsbedingungen liegen bei den jeweiligen Quellenbetreibern.
 
-[![Sponsor this project](https://img.shields.io/badge/Sponsor%20this%20project-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/hanshauberger)
+[![Sponsor this project](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://buymeacoffee.com/hanshauberger)
