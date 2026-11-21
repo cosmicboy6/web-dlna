@@ -1,6 +1,5 @@
 # web-dlna
 
-[![Sponsor this project](https://img.shields.io/badge/Sponsor%20this%20project-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/hanshauberger)
 
 Ein DLNA/UPnP-Mediaserver, der viele öffentlich erreichbare MP3-Autoindex-Quellen als **einen** Medienserver bündelt. Dieses Repository enthält den kompletten Servercode, die Web-Oberfläche und einen **vorbereiteten Index** aller eingerichteten MP3-Quellen. Das Docker-Image wird bei jedem Push auf `main` per GitHub Actions nach **GitHub Container Registry (GHCR)** veröffentlicht.
 
@@ -342,3 +341,5 @@ Einige Quellen (insbesondere Beelody 2025) liefern nur einen UTF-16-BOM und kön
 ## Lizenz / Haftung
 
 Dieses Projekt bündelt Index-Metadaten öffentlich erreichbarer Web-Verzeichnisse. Es werden keine Audioinhalte redistribuiert. Die verfügbaren Inhalte und deren Nutzungsbedingungen liegen bei den jeweiligen Quellenbetreibern.
+
+[![Sponsor this project](https://img.shields.io/badge/Sponsor%20this%20project-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/hanshauberger)
