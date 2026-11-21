@@ -1,5 +1,7 @@
 # web-dlna
 
+[![Sponsor this project](https://img.shields.io/badge/Sponsor%20this%20project-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/hanshauberger)
+
 Ein DLNA/UPnP-Mediaserver, der viele öffentlich erreichbare MP3-Autoindex-Quellen als **einen** Medienserver bündelt. Dieses Repository enthält den kompletten Servercode, die Web-Oberfläche und einen **vorbereiteten Index** aller eingerichteten MP3-Quellen. Das Docker-Image wird bei jedem Push auf `main` per GitHub Actions nach **GitHub Container Registry (GHCR)** veröffentlicht.
 
 > **English:** web-dlna is a DLNA/UPnP media server that combines 52 public MP3 autoindex sources into a single library. This repository contains the complete server code, the web UI and a prebuilt index with **477,276 MP3 entries**. Docker images are published to GHCR on every push to `main`. The image contains **no audio files, no download history and no personal data** – only index metadata and source definitions.
